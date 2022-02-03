@@ -1,0 +1,37 @@
+@import "header";
+@import "cards";
+@import "info";
+@import "sort";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: Calibri, serif;
+  user-select: none;
+}
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+li {
+  list-style: none;
+}
+.container {
+  max-width: 1280px;
+  margin: auto;
+}
+.main-back {
+  background: url("../../public/images/background_main.jpg") center center fixed;
+  background-size: 100%;
+
+  .main-block_filling {
+    background: url("../../public/images/background_main2.jpg") center center;
+    box-shadow: 0 0 20px #232222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
