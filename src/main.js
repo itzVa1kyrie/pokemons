@@ -333,33 +333,6 @@ export default class Main extends Component {
         img.classList.toggle('activeImg');
     }
 
-    filter(size) {
-        let filter = [];
-        let weight = this.state.pokemons.map(item => item.parameters.weight / 10);
-        let height = this.state.pokemons.map(item => item.parameters.height / 10);
-        let weightArr = [Math.max(...weight), Math.min(...weight), weight.reduce((sum, elem) => sum + elem) / weight.length];
-        let heightArr = [Math.max(...height), Math.min(...height), height.reduce((sum, elem) => sum + elem) / height.length];
-        this.state.pokemons.map(pokemon => {
-            if (size === "small" && pokemon.parameters.weight / 10 <= (weightArr[2] + weightArr[1]) / 2)
-                filter.push(pokemon);
-            else if (size === "average" && pokemon.parameters.weight / 10 > (weightArr[2] + weightArr[1]) / 2 &&
-                pokemon.parameters.weight / 10 < (weightArr[0] + weightArr[1]) / 2)
-                filter.push(pokemon);
-            else if (size === "big" && pokemon.parameters.weight / 10 >= (weightArr[0] + weightArr[1]) / 2)
-                filter.push(pokemon);
-            else if (size === "short" && pokemon.parameters.height / 10 <= (heightArr[2] + heightArr[1]) / 2)
-                filter.push(pokemon);
-            else if (size === "medium" && pokemon.parameters.height / 10 > (heightArr[2] + heightArr[1]) / 2 &&
-                pokemon.parameters.height / 10 < (heightArr[0] + heightArr[1]) / 2)
-                filter.push(pokemon);
-            else if (size === "tall" && pokemon.parameters.height / 10 >= (heightArr[0] + heightArr[1]) / 2)
-                filter.push(pokemon);
-        })
-        this.setState({
-            filter: filter
-        })
-    }
-
     contains(array, otherArray) {
         return array.every(item => otherArray.indexOf(item) !== -1);
     }
