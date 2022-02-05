@@ -249,7 +249,8 @@ export default class Main extends Component {
                     </div>
         }
         else {
-            wrapperCards.style.padding = '50px 40px 150px 40px';
+	    if (wrapperCards !== null)
+                wrapperCards.style.padding = '50px 40px 150px 40px';
             allPokemons.map((pokemon, index) => {
                 if (index < this.state.limitPokemons)
                     pokemons.push(pokemon);
