@@ -91,7 +91,7 @@
   border-radius: 50%;
   overflow: hidden;
   box-shadow: inset 10px 10px 0 10px #ccc, -10px 40px 20px -35px rgba(69, 73, 77, 0.9);
-  animation: fall .5s ease-in-out, shake 2s cubic-bezier(.36, .07, .19, .97) 3;
+  animation: fall .5s ease-in-out, shakeBall 2s cubic-bezier(.36, .07, .19, .97) 3;
   &::before,
   &::after {
     content:"";
@@ -155,7 +155,7 @@
     background: #e74c3c;
   }
 }
-@keyframes shake {
+@keyframes shakeBall {
   0% {
     transform: translate(0, 0) rotate(0);
   }
