@@ -1,7 +1,6 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Main from "./main";
-import Header from "./header";
 import "./styles/main.css"
 import "bootstrap/dist/css/bootstrap-grid.css"
 

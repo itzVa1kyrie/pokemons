@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
-import colorType from "./colorType";
+import React, {useState, useEffect, useRef} from 'react';
+import colorsType from "./colorType";
 import Header from "./header";
+<<<<<<< Updated upstream
 
 export default class Main extends Component {
     state = {
@@ -279,61 +280,60 @@ export default class Main extends Component {
     }
 
     colorType(type) {
+=======
+import Cards from "./main/cards";
+import Sorting from "./main/sorting";
+import AddButtons from "./main/addButtons";
+import Info from "./info/info";
+import AllData from "./API/allData";
+
+const Main = () => {
+    const [location, setLocation] = useState("main");
+    const [activeId, setActiveId] = useState(null);
+    const [limitPokemons, setLimitPokemons] = useState(15);
+    const [pokemons, setPokemons] = useState([]);
+    const [sorting, setSorting] = useState(false);
+    const [search, setSearch] = useState([]);
+    const [filter, setFilter] = useState([]);
+
+    const cards = useRef(null);
+
+    useEffect(async () => {
+        setPokemons(await AllData());
+    }, []);
+
+    const clickCard = (id) => {
+        setLocation("card");
+        setActiveId(id - 1);
+    }
+
+    const colorType = (type) => {
+>>>>>>> Stashed changes
         let color;
-        color = colorType[0][type].length === 1 ?
-            `linear-gradient(${colorType[0][type]}, ${colorType[0][type]})`
-            : `linear-gradient(${colorType[0][type][0]} 50%, ${colorType[0][type][1]} 50%)`;
+        color = colorsType[0][type].length === 1 ?
+            `linear-gradient(${colorsType[0][type]}, ${colorsType[0][type]})`
+            : `linear-gradient(${colorsType[0][type][0]} 50%, ${colorsType[0][type][1]} 50%)`;
         return <p className="card-types_type" style={{background: color}}>{type}</p>;
     }
 
-    clickSurpriseMe() {
-        if (this.state.search.length !== 0)
-            this.setState({
-                search: this.state.search.sort(() => Math.random() - 0.5),
-                sorting: true
-            });
-        else if (this.state.filter.length !== 0 && this.state.filter[0] !== undefined)
-            this.setState({
-                filter: this.state.filter.sort(() => Math.random() - 0.5),
-                sorting: true
-            });
+    const clickSurpriseMe = () => {
+        if (search.length !== 0)
+            setSearch(search.slice().sort(() => Math.random() - 0.5));
+        else if (filter.length !== 0 && filter[0] !== undefined)
+            setFilter(filter.slice().sort(() => Math.random() - 0.5));
         else
-            this.setState({
-                pokemons: this.state.pokemons.sort(() => Math.random() - 0.5),
-                sorting: true
-            });
+            setPokemons(pokemons.slice().sort(() => Math.random() - 0.5));
+        setSorting(true);
     }
 
-    sorting(sortWay) {
-        let pokemons;
-        if (this.state.search.length !== 0)
-            pokemons = this.state.search;
-        else if (this.state.filter.length !== 0 && this.state.filter[0] !== undefined)
-            pokemons = this.state.filter;
-        else
-            pokemons = this.state.pokemons;
-        if (sortWay === 'asc')
-            pokemons.sort((a, b) => a.id - b.id);
-        else if (sortWay === 'desc')
-            pokemons.sort((a, b) => b.id - a.id);
-        else if (sortWay === 'a-z')
-            pokemons.sort((a, b) => (a.name > b.name) ? 1 : -1)
-        else if (sortWay === 'z-a')
-            pokemons.sort((a, b) => (a.name < b.name) ? 1 : -1)
-        this.setState({
-            pokemons: pokemons,
-            sorting: true
-        })
-        this.visibleList();
+    const clickBack = () => {
+        setLocation("main");
+        window.scroll(0, 0);
     }
 
-    visibleList() {
-        let list = document.querySelector('.sort_list');
-        let img = document.querySelector('.wrapper-sort_img');
-        list.classList.toggle('activeList');
-        img.classList.toggle('activeImg');
-    }
+    const addMore = (howMany) => setLimitPokemons(limitPokemons + howMany);
 
+<<<<<<< Updated upstream
     contains(array, otherArray) {
         return array.every(item => otherArray.indexOf(item) !== -1);
     }
@@ -571,31 +571,16 @@ export default class Main extends Component {
             blockDesc[index].classList.remove('active-ability');
         })
     }
+=======
+    const handleChangeSearch = (search) => setSearch(search);
+>>>>>>> Stashed changes
 
-    clickOnPrevious(id) {
-        let newId;
-        if (id === 0)
-            newId = this.state.pokemons.length - 1;
-        else
-            newId = id - 1;
-        this.setState({
-            activeId: newId
-        })
-        this.closeDescription();
+    const handleChangeFilters = (filterPokemons, limitPokemons) => {
+        setFilter(filterPokemons);
+        setLimitPokemons(limitPokemons);
     }
 
-    clickOnNext(id) {
-        let newId;
-        if (id + 1 === this.state.pokemons.length)
-            newId = 0;
-        else
-            newId = id + 1;
-        this.setState({
-            activeId: newId
-        })
-        this.closeDescription();
-    }
-
+<<<<<<< Updated upstream
     clickBack() {
         this.setState({
             location: "main"
@@ -823,9 +808,42 @@ export default class Main extends Component {
                                             <button className="btn-add-card" onClick={() => this.addMore(30)}>+30</button>
                                         </div> : ''
                                     }
+=======
+    const handleChangeActiveId = (id) => setActiveId(id);
+
+    const handleChangeSorting = (bool) => setSorting(bool);
+
+    const handleChangeSortPokemon = (pokemons, bool) => {
+        setPokemons(pokemons);
+        setSorting(bool);
+    }
+
+    const handleChangeDisable = (block) =>
+        location === "main" ? block.current.disabled = false : block.current.disabled = true;
+
+    return (
+        <div><Header pokemons={pokemons} changeState={handleChangeSearch}
+                     location={location} changeDisable={handleChangeDisable}/>
+            {
+                location === "main" ?
+                    <div className="main-back">
+                        <div className="container">
+                            <div className="main-block_filling">
+                                <Sorting pokemons={pokemons} clickSurpriseMe={clickSurpriseMe}
+                                         search={search} filter={filter} colorType={colorType}
+                                         changeFilters={handleChangeFilters} changeSortPokemons={handleChangeSortPokemon}/>
+                                <div ref={cards} className="cards">
+                                    <Cards search={search} filter={filter} pokemons={pokemons}
+                                           limitPokemons={limitPokemons} sorting={sorting}
+                                           clickCard={clickCard} colorType={colorType}
+                                           changeSorting={handleChangeSorting} cards={cards.current}/>
+>>>>>>> Stashed changes
                                 </div>
+                                <AddButtons limitPokemons={limitPokemons} pokemons={pokemons}
+                                            search={search} addMore={addMore}/>
                             </div>
                         </div>
+<<<<<<< Updated upstream
                             :
                             <div className="main-back">
                                 <div className="container">
@@ -833,9 +851,20 @@ export default class Main extends Component {
                                         {this.createInfo()}
                                     </div>
                                 </div>
+=======
+                    </div>
+                    :
+                    <div className="main-back">
+                        <div className="container">
+                            <div className="main-block_filling">
+                                <Info pokemons={pokemons} activeId={activeId} clickCard={clickCard} colorType={colorType}
+                                      clickBack={clickBack} changeId={handleChangeActiveId}/>
+>>>>>>> Stashed changes
                             </div>
-                }
-            </div>
-        );
-    }
+                        </div>
+                    </div>
+            }
+        </div>
+    );
 }
+export default Main;

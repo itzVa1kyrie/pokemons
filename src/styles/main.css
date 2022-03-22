@@ -584,7 +584,11 @@
 .additional-fill_params {
   flex-direction: row;
   flex-wrap: wrap;
+<<<<<<< Updated upstream
   width: 240px;
+=======
+  width: 260px;
+>>>>>>> Stashed changes
   height: 230px;
   margin: 0;
 }
