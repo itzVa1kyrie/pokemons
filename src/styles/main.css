@@ -569,6 +569,17 @@
   width: 60px;
   background: #f5f5f5;
 }
+.stats-block_filling .stats-block_numb {
+  font-size: 110%;
+  text-align: center;
+  color: #f5f5f5;
+  padding-top: 2px;
+}
+
+.additional-fill_stats:hover .stats-block_numb {
+  color: #757474;
+  text-shadow: 0 0 5px #af9f78;
+}
 
 .stats-block_name {
   text-align: center;
@@ -584,11 +595,7 @@
 .additional-fill_params {
   flex-direction: row;
   flex-wrap: wrap;
-<<<<<<< Updated upstream
-  width: 240px;
-=======
   width: 260px;
->>>>>>> Stashed changes
   height: 230px;
   margin: 0;
 }
